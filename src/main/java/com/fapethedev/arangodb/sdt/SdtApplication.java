@@ -1,5 +1,6 @@
 package com.fapethedev.arangodb.sdt;
 
+import com.fapethedev.arangodb.sdt.runner.CrudRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SdtApplication {
 
 	public static void main(String[] args) {
-		Class<?>[] runner = new Class<?>[]{};
+		Class<?>[] runner = new Class<?>[]{CrudRunner.class};
         System.exit(SpringApplication.exit(SpringApplication.run(runner, args)));
 	}
 
