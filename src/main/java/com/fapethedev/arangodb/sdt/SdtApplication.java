@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SdtApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SdtApplication.class, args);
+		Class<?>[] runner = new Class<?>[]{};
+        System.exit(SpringApplication.exit(SpringApplication.run(runner, args)));
 	}
 
 }
