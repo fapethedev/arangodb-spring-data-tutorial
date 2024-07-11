@@ -33,5 +33,11 @@ public class CrudRunner implements CommandLineRunner
         final Optional<Character> foundNed = repository.findById(nedStark.getId());
         assert foundNed.isPresent();
         System.out.printf("Found %s%n", foundNed.get());
+
+        nedStark.setAlive(false);
+        repository.save(nedStark);
+        var deadNed = repository.findById(nedStark.getId());
+        assert deadNed.isPresent();
+        System.out.printf("The 'alive' flag of the persisted Ned Stark is now '%s'%n",deadNed.get().isAlive());
     }
 }
