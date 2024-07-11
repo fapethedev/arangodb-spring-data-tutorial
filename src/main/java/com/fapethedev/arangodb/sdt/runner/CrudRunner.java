@@ -6,6 +6,8 @@ import com.fapethedev.arangodb.sdt.repository.CharacterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -56,6 +58,14 @@ public class CrudRunner implements CommandLineRunner
                 false)
                 .count();
         System.out.printf("A total of %s characters are persisted in the database%n",count);
+
+        System.out.println("## Return all characters sorted by name");
+        var allSorted = repository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        allSorted.forEach(System.out::println);
+
+        System.out.println("## Return the first 5 characters sorted by name");
+        var first5Sorted = repository.findAll(PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC, "name")));
+        first5Sorted.forEach(System.out::println);
     }
 
     public static Collection<Character> createCharacters(){
