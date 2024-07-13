@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @ComponentScan("com.fapethedev.arangodb.sdt")
 public class DerivedQueryRunner implements CommandLineRunner
@@ -18,5 +20,18 @@ public class DerivedQueryRunner implements CommandLineRunner
         System.out.println("## Find all characters with surname 'Lannister'");
         var lannisters = repository.findBySurname("Lannister");
         lannisters.forEach(System.out::println);
+
+        System.out.println("## Find top 2 Lannnisters ordered by age");
+        var top2 = repository.findTop2DistinctBySurnameIgnoreCaseOrderByAgeDesc("lannister");
+        top2.forEach(System.out::println);
+
+        System.out.println("## Find all characters which name is 'Bran' or 'Sansa' and it's surname ends with 'ark' and are between 10 and 16 years old");
+        var youngStarks = repository.findBySurnameEndsWithAndAgeBetweenAndNameInAllIgnoreCase(
+                "ark",
+                10,
+                16,
+                List.of(new String[]{"Bran", "Sansa"})
+        );
+        youngStarks.forEach(System.out::println);
     }
 }
