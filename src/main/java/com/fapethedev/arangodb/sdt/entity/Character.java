@@ -2,6 +2,7 @@ package com.fapethedev.arangodb.sdt.entity;
 
 import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
+import com.arangodb.springframework.annotation.PersistentIndex;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import org.springframework.data.annotation.Id;
 @Setter
 @NoArgsConstructor
 @Document("characters")
+@PersistentIndex(fields = {"surname"})
 public class Character
 {
     @Id // db document field: _key
