@@ -41,5 +41,9 @@ public class DerivedQueryRunner implements CommandLineRunner
         System.out.println("## Count how many characters are still alive");
         Integer alive = repository.countByAliveTrue();
         System.out.printf("There are %s characters still alive%n", alive);
+
+        System.out.println("## Remove all characters except of which surname is 'Stark' and which are still alive");
+        repository.removeBySurnameNotLikeOrAliveFalse("Stark");
+        repository.findAll().forEach(System.out::println);
     }
 }
