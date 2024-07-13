@@ -33,5 +33,9 @@ public class DerivedQueryRunner implements CommandLineRunner
                 List.of(new String[]{"Bran", "Sansa"})
         );
         youngStarks.forEach(System.out::println);
+
+        System.out.println("## Find a single character by name & surname");
+        var tyrion = repository.findByNameAndSurname("Tyrion", "Lannister");
+        tyrion.ifPresent(c -> System.out.printf("Found %s%n", c));
     }
 }

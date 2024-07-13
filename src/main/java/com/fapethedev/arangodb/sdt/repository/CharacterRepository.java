@@ -5,6 +5,7 @@ import com.fapethedev.arangodb.sdt.entity.Character;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface CharacterRepository extends ArangoRepository<Character, String> {
     Iterable<Character> findBySurname(String surname);
@@ -16,4 +17,6 @@ public interface CharacterRepository extends ArangoRepository<Character, String>
         Integer lowerBound,
         Integer upperBound,
         Collection<String> nameList);
+
+    Optional<Character> findByNameAndSurname(String name, String surname);
 }
