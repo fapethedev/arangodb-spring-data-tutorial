@@ -19,4 +19,6 @@ public interface CharacterRepository extends ArangoRepository<Character, String>
         Collection<String> nameList);
 
     Optional<Character> findByNameAndSurname(String name, String surname);
+
+    Integer countByAliveTrue();
 }

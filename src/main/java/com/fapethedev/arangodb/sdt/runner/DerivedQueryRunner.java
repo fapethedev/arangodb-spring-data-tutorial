@@ -37,5 +37,9 @@ public class DerivedQueryRunner implements CommandLineRunner
         System.out.println("## Find a single character by name & surname");
         var tyrion = repository.findByNameAndSurname("Tyrion", "Lannister");
         tyrion.ifPresent(c -> System.out.printf("Found %s%n", c));
+
+        System.out.println("## Count how many characters are still alive");
+        Integer alive = repository.countByAliveTrue();
+        System.out.printf("There are %s characters still alive%n", alive);
     }
 }
