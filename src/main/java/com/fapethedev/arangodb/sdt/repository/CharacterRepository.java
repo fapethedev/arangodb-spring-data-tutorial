@@ -1,5 +1,6 @@
 package com.fapethedev.arangodb.sdt.repository;
 
+import com.arangodb.springframework.annotation.BindVars;
 import com.arangodb.springframework.annotation.Query;
 import com.arangodb.springframework.repository.ArangoRepository;
 import com.fapethedev.arangodb.sdt.entity.Character;
@@ -7,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface CharacterRepository extends ArangoRepository<Character, String> {
@@ -28,4 +30,7 @@ public interface CharacterRepository extends ArangoRepository<Character, String>
 
     @Query("FOR c IN characters FILTER c.surname == @surname SORT c.age ASC RETURN c")
     Iterable<Character> getWithSurname(@Param("surname") String value);
+
+    @Query("FOR c IN @@col FILTER c.surname == @surname AND c.age > @age RETURN c")
+    Iterable<Character> getWithSurnameOlderThan(@Param("age") int value, @BindVars Map<String, Object> bindvars);
 }

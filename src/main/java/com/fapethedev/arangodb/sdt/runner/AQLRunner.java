@@ -1,9 +1,12 @@
 package com.fapethedev.arangodb.sdt.runner;
 
 
+import com.fapethedev.arangodb.sdt.entity.Character;
 import com.fapethedev.arangodb.sdt.repository.CharacterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+
+import java.util.HashMap;
 
 @RequiredArgsConstructor
 public class AQLRunner implements CommandLineRunner {
@@ -18,6 +21,13 @@ public class AQLRunner implements CommandLineRunner {
         var lannisters = repository.getWithSurname("Lannister");
         lannisters.forEach(System.out::println);
 
+        System.out.println("## Find all characters with surname 'Lannister' which are older than 35");
+        var bindvars = new HashMap<String, Object>();
+        bindvars.put("surname", "Lannister");
+        bindvars.put("@col", Character.class);
+
+        var oldLannisters = repository.getWithSurnameOlderThan(35, bindvars);
+        oldLannisters.forEach(System.out::println);
     }
 
 }
