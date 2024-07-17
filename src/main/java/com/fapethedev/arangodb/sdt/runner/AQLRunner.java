@@ -7,10 +7,12 @@ import com.fapethedev.arangodb.sdt.entity.ChildOf;
 import com.fapethedev.arangodb.sdt.repository.CharacterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.HashMap;
 
 @RequiredArgsConstructor
+@ComponentScan("com.fapethedev.arangodb.sdt")
 public class AQLRunner implements CommandLineRunner {
 
     private final CharacterRepository repository;

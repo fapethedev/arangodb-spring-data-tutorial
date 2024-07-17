@@ -5,10 +5,12 @@ import com.fapethedev.arangodb.sdt.repository.CharacterRepository;
 import com.fapethedev.arangodb.sdt.repository.ChildOfRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.Arrays;
 
 @RequiredArgsConstructor
+@ComponentScan("com.fapethedev.arangodb.sdt")
 public class RelationsRunner implements CommandLineRunner {
 
     private final CharacterRepository characterRepo;
