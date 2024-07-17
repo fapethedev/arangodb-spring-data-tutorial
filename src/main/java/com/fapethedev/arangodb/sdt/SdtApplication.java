@@ -3,6 +3,7 @@ package com.fapethedev.arangodb.sdt;
 import com.fapethedev.arangodb.sdt.runner.AQLRunner;
 import com.fapethedev.arangodb.sdt.runner.CrudRunner;
 import com.fapethedev.arangodb.sdt.runner.DerivedQueryRunner;
+import com.fapethedev.arangodb.sdt.runner.RelationsRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -13,7 +14,8 @@ public class SdtApplication {
 		Class<?>[] runner = new Class<?>[]{
 				CrudRunner.class,
 				DerivedQueryRunner.class,
-				AQLRunner.class
+				AQLRunner.class,
+				RelationsRunner.class
 		};
         System.exit(SpringApplication.exit(SpringApplication.run(runner, args)));
 	}

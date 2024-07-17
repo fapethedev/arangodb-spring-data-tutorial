@@ -3,11 +3,14 @@ package com.fapethedev.arangodb.sdt.entity;
 import com.arangodb.springframework.annotation.ArangoId;
 import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.PersistentIndex;
+import com.arangodb.springframework.annotation.Relations;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
+
+import java.util.Collection;
 
 @ToString
 @Getter
@@ -27,6 +30,9 @@ public class Character
     private String surname;
     private boolean alive;
     private Integer age;
+
+    @Relations(edges = ChildOf.class, lazy = true)
+    private Collection<Character> children;
 
     public Character(final String name, final String surname, final boolean alive) {
         super();
