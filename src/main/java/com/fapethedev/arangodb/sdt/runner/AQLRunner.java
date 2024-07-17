@@ -1,6 +1,7 @@
 package com.fapethedev.arangodb.sdt.runner;
 
 
+import com.arangodb.ArangoCursor;
 import com.fapethedev.arangodb.sdt.entity.Character;
 import com.fapethedev.arangodb.sdt.repository.CharacterRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class AQLRunner implements CommandLineRunner {
         bindvars.put("@col", Character.class);
 
         var oldLannisters = repository.getWithSurnameOlderThan(35, bindvars);
+        System.out.printf("Found %s documents%n", ((ArangoCursor<Character>) oldLannisters).getCount());
         oldLannisters.forEach(System.out::println);
     }
 
