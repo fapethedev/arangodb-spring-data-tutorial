@@ -7,10 +7,7 @@ import com.arangodb.springframework.repository.ArangoRepository;
 import com.fapethedev.arangodb.sdt.entity.Character;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public interface CharacterRepository extends ArangoRepository<Character, String> {
     Iterable<Character> findBySurname(String surname);
@@ -35,4 +32,7 @@ public interface CharacterRepository extends ArangoRepository<Character, String>
     @Query("FOR c IN @@col FILTER c.surname == @surname AND c.age > @age RETURN c")
     @QueryOptions(count = true)
     Iterable<Character> getWithSurnameOlderThan(@Param("age") int value, @BindVars Map<String, Object> bindvars);
+
+    @Query("FOR v IN 1..2 INBOUND @arangoId @@edgeCol SORT v.age DESC RETURN DISTINCT v")
+    Set<Character> getAllChildrenAndGrandchildren(@Param("arangoId") String arangoId, @Param("@edgeCol") Class<?> edgeCollection);
 }

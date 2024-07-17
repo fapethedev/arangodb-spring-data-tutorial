@@ -3,6 +3,7 @@ package com.fapethedev.arangodb.sdt.runner;
 
 import com.arangodb.ArangoCursor;
 import com.fapethedev.arangodb.sdt.entity.Character;
+import com.fapethedev.arangodb.sdt.entity.ChildOf;
 import com.fapethedev.arangodb.sdt.repository.CharacterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -30,6 +31,12 @@ public class AQLRunner implements CommandLineRunner {
         var oldLannisters = repository.getWithSurnameOlderThan(35, bindvars);
         System.out.printf("Found %s documents%n", ((ArangoCursor<Character>) oldLannisters).getCount());
         oldLannisters.forEach(System.out::println);
+
+        System.out.println("## Find all children and grantchildren of 'Tywin Lannister' (sort by age descending)");
+        repository.findByNameAndSurname("Tywin", "Lannister").ifPresent(tywin -> {
+            var children = repository.getAllChildrenAndGrandchildren(tywin.getArangoId(), ChildOf.class);
+            children.forEach(System.out::println);
+        });
     }
 
 }
