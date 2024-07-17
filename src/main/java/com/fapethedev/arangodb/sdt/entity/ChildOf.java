@@ -24,13 +24,13 @@ public class ChildOf
     private String arangoId;
 
     @From(lazy = true) // edge source document(node): _from
-    private Character from;
+    private Character child;
 
     @To(lazy = true) // edge destination document(node): _to
-    private Character to;
+    private Character parent;
 
-    public ChildOf(Character from, Character to) {
-        this.from = from;
-        this.to = to;
+    public ChildOf(Character child, Character parent) {
+        this.child = child;
+        this.parent = parent;
     }
 }
