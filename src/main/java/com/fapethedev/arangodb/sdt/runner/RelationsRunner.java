@@ -42,6 +42,11 @@ public class RelationsRunner implements CommandLineRunner {
             characterRepo.findByNameAndSurname("Tyrion", "Lannister")
                     .ifPresent(tyrion -> childOfRepo.save(new ChildOf(tyrion, tywin)));
         });
+
+        characterRepo.findByNameAndSurname("Ned", "Stark").ifPresent(nedStark -> {
+            System.out.printf("## These are the children of %s:%n", nedStark);
+            nedStark.getChildren().forEach(System.out::println);
+        });
     }
 
 }
