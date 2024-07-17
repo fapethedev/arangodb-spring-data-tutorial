@@ -35,4 +35,8 @@ public interface CharacterRepository extends ArangoRepository<Character, String>
 
     @Query("FOR v IN 1..2 INBOUND @arangoId @@edgeCol SORT v.age DESC RETURN DISTINCT v")
     Set<Character> getAllChildrenAndGrandchildren(@Param("arangoId") String arangoId, @Param("@edgeCol") Class<?> edgeCollection);
+
+    Iterable<Character> findByChildrenName(String name);
+
+    Iterable<Character> findByChildrenAgeBetween(int lowerBound, int upperBound);
 }

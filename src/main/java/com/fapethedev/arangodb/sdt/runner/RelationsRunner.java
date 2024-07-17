@@ -47,6 +47,15 @@ public class RelationsRunner implements CommandLineRunner {
             System.out.printf("## These are the children of %s:%n", nedStark);
             nedStark.getChildren().forEach(System.out::println);
         });
+
+        System.out.println("## These are the parents of 'Sansa'");
+        var parentsOfSansa = characterRepo.findByChildrenName("Sansa");
+        parentsOfSansa.forEach(System.out::println);
+
+        System.out.println("## These parents have a child which is between 16 and 20 years old");
+        var childrenBetween16a20 = characterRepo.findByChildrenAgeBetween(16, 20);
+        childrenBetween16a20.forEach(System.out::println);
+
     }
 
 }
