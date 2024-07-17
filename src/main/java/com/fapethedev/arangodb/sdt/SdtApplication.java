@@ -13,7 +13,8 @@ public class SdtApplication {
 				DerivedQueryRunner.class,
 				AQLRunner.class,
 				RelationsRunner.class,
-				ByExampleRunner.class
+				ByExampleRunner.class,
+				GeospatialRunner.class
 		};
         System.exit(SpringApplication.exit(SpringApplication.run(runner, args)));
 	}
