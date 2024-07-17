@@ -6,7 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Range;
+import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoPage;
+import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 
 import java.util.Arrays;
@@ -38,6 +41,16 @@ public class GeospatialRunner implements CommandLineRunner {
         System.out.println("## Find the next 5 locations near 'Winterfell' (only 3 locations left)");
         GeoPage<Location> next5 = repository.findByLocationNear(new Point(-5.581312, 54.368321), PageRequest.of(1, 5));
         next5.forEach(System.out::println);
+
+        System.out.println("## Find all locations within 50 kilometers of 'Winterfell'");
+        var findWithing50kilometers = repository
+                .findByLocationWithin(new Point(-5.581312, 54.368321), new Distance(50, Metrics.KILOMETERS));
+        findWithing50kilometers.forEach(System.out::println);
+
+        System.out.println("## Find all locations which are 40 to 50 kilometers away from 'Winterfell'");
+        var findByLocationWithin = repository.findByLocationWithin(new Point(-5.581312, 54.368321),
+                Range.of(Range.Bound.inclusive(40000.), Range.Bound.exclusive(50000.)));
+        findByLocationWithin.forEach(System.out::println);
     }
 
 }
