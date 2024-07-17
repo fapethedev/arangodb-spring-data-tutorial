@@ -5,6 +5,8 @@ import com.fapethedev.arangodb.sdt.repository.LocationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.geo.GeoPage;
 import org.springframework.data.geo.Point;
 
 import java.util.Arrays;
@@ -28,5 +30,14 @@ public class GeospatialRunner implements CommandLineRunner {
                 new Location("Winterfell",      new Point(-5.581312, 54.368321)),
                 new Location("Vaes Dothrak",    new Point(-6.096125, 54.16776)),
                 new Location("Beyond the wall", new Point(-21.094093, 64.265473))));
+
+        System.out.println("## Find the first 5 locations near 'Winterfell'");
+        GeoPage<Location> first5 = repository.findByLocationNear(new Point(-5.581312, 54.368321), PageRequest.of(0, 5));
+        first5.forEach(System.out::println);
+
+        System.out.println("## Find the next 5 locations near 'Winterfell' (only 3 locations left)");
+        GeoPage<Location> next5 = repository.findByLocationNear(new Point(-5.581312, 54.368321), PageRequest.of(1, 5));
+        next5.forEach(System.out::println);
     }
+
 }
